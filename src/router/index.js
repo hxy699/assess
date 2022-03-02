@@ -170,6 +170,47 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/test',
+    component: Layout,
+    redirect: '/test/page',
+    alwaysShow: true, // will always show the root menu
+    name: 'Test',
+    meta: {
+      title: 'Test',
+      icon: 'lock',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'page',
+        component: () => import('@/views/test/page'),
+        name: 'PageTest',
+        meta: {
+          title: 'Page Test',
+          roles: ['admin'] // or you can only set roles in sub nav
+        }
+      },
+      {
+        path: 'directive',
+        component: () => import('@/views/test/directive'),
+        name: 'List',
+        meta: {
+          title: 'List'
+          // if do not set roles, means: this page does not require permission
+        }
+      },
+      {
+        path: 'index',
+        component: () => import('@/views/test/index'),
+        name: 'Index',
+        meta: {
+          title: 'Index',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
 
   {
     path: '/icon',
