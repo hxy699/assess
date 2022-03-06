@@ -99,4 +99,8 @@ export default {
   .mobile .fixed-header {
     width: 100%;
   }
+  .tit{
+    width: 300px;
+    border-bottom: 1px solid #000;
+  }
 </style>

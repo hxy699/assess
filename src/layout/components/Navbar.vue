@@ -3,6 +3,11 @@
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+    <!-- 权限标题 -->
+    <div class="tit">
+      <div v-permission="['admin']">我是超级管理员</div>
+      <div v-permission="['editor']">我是编辑员</div>
+    </div>
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
@@ -54,6 +59,9 @@ import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
 
+import permission from '@/directive/permission/index.js' // 权限判断指令
+import checkPermission from '@/utils/permission' // 权限判断函数
+
 export default {
   components: {
     Breadcrumb,
@@ -63,6 +71,7 @@ export default {
     SizeSelect,
     Search
   },
+  directives: { permission },
   computed: {
     ...mapGetters([
       'sidebar',
@@ -77,6 +86,10 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    checkPermission,
+    handleRolesChange() {
+      this.key++
     }
   }
 }
@@ -105,6 +118,15 @@ export default {
 
   .breadcrumb-container {
     float: left;
+  }
+  .tit{
+    margin-left: 30px;
+    display: inline-block;
+    line-height: 46px;
+    height: 100%;
+    width: 300px;
+    padding-left: 10px;
+    border: 1px solid #ccc;
   }
 
   .errLog-container {
@@ -164,4 +186,5 @@ export default {
     }
   }
 }
+
 </style>
